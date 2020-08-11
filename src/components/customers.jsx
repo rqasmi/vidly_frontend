@@ -68,13 +68,6 @@ class Customers extends Component {
       customers: allCustomers,
     } = this.state;
 
-    // let filtered = allCustomers;
-
-    // if (searchQuery)
-    //   filtered = allCustomers.filter((m) =>
-    //     m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
-    //   );
-
     const filtered = searchQuery
       ? allCustomers.filter((c) =>
           c.name.toLowerCase().startsWith(searchQuery.toLowerCase())
@@ -92,8 +85,6 @@ class Customers extends Component {
     const { length: count } = this.state.customers;
 
     const { pageSize, currentPage, sortColumn } = this.state;
-
-    if (count === 0) return <p>There are no customers in the database.</p>;
 
     const { totalCount, data: customers } = this.getPagedData();
 

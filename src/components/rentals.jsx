@@ -32,10 +32,7 @@ class Rentals extends Component {
   handleReturn = async (rental) => {
     try {
       await returnRental(rental);
-      console.log(
-        `The rental with id ${rental._id} belonging to customer ${rental.customer.name} has been successfully processed.`
-      );
-      toast(
+      toast.success(
         `The rental with id ${rental._id} belonging to customer ${rental.customer.name} has been successfully processed.`
       );
       window.location = "/rentals";
@@ -79,8 +76,6 @@ class Rentals extends Component {
     const { length: count } = this.state.rentals;
     const { pageSize, currentPage, sortColumn } = this.state;
     const { user } = this.props;
-
-    if (count === 0) return <p>There are no rentals in the database.</p>;
 
     const { totalCount, data: rentals } = this.getPagedData();
 
