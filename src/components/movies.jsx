@@ -5,7 +5,6 @@ import ListGroup from "./common/listGroup";
 import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import SearchBox from "./common/searchBox";
-// import { getMovies } from "../services/fakeMovieService";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import { paginate } from "../utils/paginate";
@@ -95,11 +94,6 @@ class Movies extends Component {
     else if (selectedGenre && selectedGenre._id)
       filtered = allMovies.filter((m) => m.genre._id === selectedGenre._id);
 
-    // const filtered =
-    //   selectedGenre && selectedGenre._id
-    //     ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
-    //     : allMovies.filter((m) => m.title.startsWith(searchValue));
-
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     const movies = paginate(sorted, currentPage, pageSize);
@@ -110,6 +104,7 @@ class Movies extends Component {
   render() {
     const { length: count } = this.state.movies;
     const { pageSize, currentPage, sortColumn } = this.state;
+    const { user } = this.props;
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
@@ -125,19 +120,22 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <Link
-            to="/movies/new"
-            style={{ marginBottom: 20 }}
-            className="btn btn-primary"
-          >
-            New Movie
-          </Link>
-          <p>Showing {totalCount} movies in the database.</p>
+          {user && (
+            <Link
+              to="/movies/new"
+              style={{ marginBottom: 20 }}
+              className="btn btn-primary"
+            >
+              New Movie
+            </Link>
+          )}
+          <p>Showing {totalCount} movie(s) in the database.</p>
           <SearchBox
             value={this.state.searchQuery}
             onChange={this.handleSearch}
           />
           <MoviesTable
+            user={user}
             movies={movies}
             sortColumn={sortColumn}
             onLike={this.handleLike}

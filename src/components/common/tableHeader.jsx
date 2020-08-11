@@ -12,6 +12,12 @@ class TableHeader extends Component {
     this.props.onSort(sortColumn);
   };
 
+  /**
+   *
+   * @param {*} column
+   *
+   * Renders the sort icon on the currently sorted column.
+   */
   renderSortIcon = (column) => {
     const { sortColumn } = this.props;
 

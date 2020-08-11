@@ -29,6 +29,10 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   );
 };
 
+/**
+ * Validators for the props of pagination component.
+ */
+
 Pagination.propTypes = {
   itemsCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,

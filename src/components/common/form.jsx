@@ -9,6 +9,10 @@ class Form extends Component {
     errors: {},
   };
 
+  /**
+   * Validates the user input based on the defined schema and populates the errors object.
+   */
+
   validate = () => {
     const options = { abortEarly: false };
     const { error } = Joi.validate(this.state.data, this.schema, options);
@@ -26,6 +30,13 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
+  /**
+   *
+   * @param {*} e
+   *
+   * Validates the form data based on the schema before submtting the form.
+   */
+
   handleSubmit = (e) => {
     e.preventDefault(); // prevent submitting the form to the server which causes a full page reload
 
@@ -35,6 +46,13 @@ class Form extends Component {
 
     this.doSubmit();
   };
+
+  /**
+   *
+   * @param {*} event
+   *
+   * Populates the data and error objects on change of elements registered to this event handler.
+   */
 
   handleChange = ({ currentTarget: input }) => {
     const errors = { ...this.state.errors };
@@ -48,18 +66,6 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  // handleSelect = ({ currentTarget: input }) => {
-  //   const errors = { ...this.state.errors };
-  //   const errorMessage = this.validateProperty(input);
-  //   if (errorMessage) errors[input.name] = errorMessage;
-  //   else delete errors[input.name];
-
-  //   const data = { ...this.state.data };
-  //   data[input.name] = input.value;
-
-  //   this.setState({ data, errors });
-  // };
-
   renderButton(label) {
     return (
       <button disabled={this.validate()} className="btn btn-primary">
@@ -67,6 +73,15 @@ class Form extends Component {
       </button>
     );
   }
+
+  /**
+   *
+   * @param {*} name
+   * @param {*} label
+   * @param {*} type
+   *
+   * Renders an Input Html element.
+   */
 
   renderInput(name, label, type = "text") {
     const { data, errors } = this.state;
@@ -83,6 +98,15 @@ class Form extends Component {
     );
   }
 
+  /**
+   *
+   * @param {*} name
+   * @param {*} label
+   * @param {*} items
+   * @param {*} itemLabel
+   *
+   * Renders a select Html element.
+   */
   renderSelect(name, label, items, itemLabel) {
     const { data, errors } = this.state;
 

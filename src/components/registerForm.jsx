@@ -16,12 +16,15 @@ class RegisterForm extends Form {
     name: Joi.string().required().label("Name"),
   };
 
+  /**
+   * Calls the users endpoint to register a user, stores the auth token from the response's header in the browser's local storage.
+   */
+
   doSubmit = async () => {
     try {
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers["x-auth-token"]);
       window.location = "/";
-      // this.props.history.push("/");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };

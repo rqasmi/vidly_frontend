@@ -5,6 +5,16 @@ import { apiUrl } from "../config.json";
 const apiEndpoint = apiUrl + "/auth";
 const tokenKey = "token";
 
+http.setJwt(getJwt());
+
+/**
+ *
+ * @param {*} email
+ * @param {*} password
+ *
+ * Calls the login endpoint on the backend.
+ */
+
 export async function login(email, password) {
   const { data: jwt } = await http.post(apiEndpoint, { email, password });
   localStorage.setItem(tokenKey, jwt); // Store the token on the client
