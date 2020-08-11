@@ -1,7 +1,6 @@
-import { apiUrl } from "../config.json";
 import http from "./httpService";
 
-const apiEndpoint = `${apiUrl}/returns`;
+const apiEndpoint = "/returns";
 
 export function returnRental(rental) {
   const { customer, movie } = rental;
